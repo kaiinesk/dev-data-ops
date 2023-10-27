@@ -1,0 +1,8 @@
+FROM python:3.12-slim as builder
+WORKDIR /build
+COPY guess_a_number.py .
+
+FROM python:3.12-alpine as final
+WORKDIR /app
+COPY --from=builder /build/guess_a_number.py .
+CMD ["python", "guess_a_number.py"]
